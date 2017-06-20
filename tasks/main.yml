@@ -51,11 +51,12 @@
     state: directory
     owner: '{{ unifi_user }}'
 
-- name: "Deploy config.properties.j2 template"
+- name: "Deploy config.properties.j2 template if not present"
   template:
     src: system.properties.j2
     dest: '{{ unifi_install_destination }}/UniFi/data/system.properties'
     owner: '{{ unifi_user }}'
+    force: no
 
 - name: "Enable and start unifi service"
   service:
