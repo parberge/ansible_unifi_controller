@@ -3,6 +3,11 @@ Unifi controller
 
 A role for installing the unifi controller service on CentOS
 
+Notes
+-----
+Currently doesn't support upgrading between versions.
+See the readme.txt in the uifi zipfile for instructions on how to do that
+
 Requirements
 ------------
 
