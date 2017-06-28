@@ -13,12 +13,6 @@
     - mongodb-server
     - java-1.8.0-openjdk
 
-- name: "Disable mongod service"
-  service:
-    name: mongod
-    enabled: no
-    state: stopped
-
 - name: "Setup unifi user"
   user:
     name: '{{ unifi_user }}'
