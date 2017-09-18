@@ -6,6 +6,7 @@
   delegate_to: 127.0.0.1
 
 - name: "Install packages"
+  become: yes
   yum:
     name: '{{ item }}'
     state: present
@@ -14,6 +15,7 @@
     - java-1.8.0-openjdk
 
 - name: "Setup unifi user"
+  become: yes
   user:
     name: '{{ unifi_user }}'
     shell: '/sbin/nologin'
@@ -34,18 +36,21 @@
     state: link
 
 - name: "Deploy unifi.service.j2 template"
+  become: yes
   template: 
     src: unifi.service.j2
     dest: /etc/systemd/system/unifi.service
     mode: 644
 
 - name: "Make sure data directory exist"
+  become: yes
   file:
     dest: '{{ unifi_install_destination }}/UniFi/data'
     state: directory
     owner: '{{ unifi_user }}'
 
 - name: "Deploy config.properties.j2 template if not present"
+  become: yes
   template:
     src: system.properties.j2
     dest: '{{ unifi_install_destination }}/UniFi/data/system.properties'
@@ -53,6 +58,7 @@
     force: no
 
 - name: "Enable and start unifi service"
+  become: yes
   service:
     name: unifi.service
     enabled: yes
