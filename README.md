@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/peerster/ansible_unifi_controller.svg?branch=master)](https://travis-ci.org/peerster/ansible_unifi_controller)
+
 Unifi controller
 =========
 
