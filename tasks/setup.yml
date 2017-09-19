@@ -1,0 +1,30 @@
+---
+- name: "Download Unifi source archive"
+  get_url:
+    url: '{{ unifi_download_url }}'
+    dest: '{{ unifi_zip_destination }}'
+  delegate_to: 127.0.0.1
+
+- name: "Install packages"
+  become: yes
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - mongodb-server
+    - java-1.8.0-openjdk
+
+- name: "Setup unifi user"
+  become: yes
+  user:
+    name: '{{ unifi_user }}'
+    shell: '/sbin/nologin'
+    createhome: no
+    state: present
+
+- name: "Extract unifi zip"
+  unarchive:
+    src: '{{ unifi_zip_destination }}' 
+    dest: '{{ unifi_install_destination }}'
+    owner: '{{ unifi_user }}'
+    creates: '{{ unifi_install_destination }}/UniFi'
